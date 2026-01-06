@@ -1,0 +1,26 @@
+// E possivel criar variaveis, por exemplo variavel com a API
+@localhoast = localhost:4004/odata/v4/my
+
+// E Possivel usar a variavel no crud e me mostra em forma de objeto
+GET http://{{localhoast}}/SalesOrderHeader
+Content-Type: application/json
+
+###
+
+POST http://localhost:4004/odata/v4/my/SalesOrderHeader
+Content-Type: application/json
+
+{}
+
+###
+DELETE http://localhost:4004/odata/v4/my/SalesOrderHeader
+Content-Type: application/json
+
+{
+    "id": "123456"
+}
+
+###
+
+PUT http://localhost:4004/odata/v4/my/SalesOrderHeader("id"=c7fd1cd3-bd65-4d27-8ca0-5cbdea4d0ccc")
+Content-Type: application/json

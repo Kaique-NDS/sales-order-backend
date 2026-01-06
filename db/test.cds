@@ -8,5 +8,5 @@ namespace sales;
 // entidades -  dados 
 entity  SalesOrderHeader: managed {
     key id: UUID
-
+    
 }
