@@ -1,0 +1,32 @@
+@localhoast = localhost:4004/odata/v4/my
+@id = 4639b241-57d0-4caa-b162-a68a9ae16c39
+GET http://{{localhoast}}/SalesOrderHeader
+Content-Type: application/json
+
+###
+
+POST http://{{localhoast}}/Customers
+Content-Type: application/json
+
+{
+    "id": "4639b241-57d0-4caa-b162-a68a9ae16c39",
+    "firstName": "Marcos",
+    "lastName": "Cardoso",
+    "email": "Marcoscardoso@gmail.com"
+}
+
+###
+
+PATCH http://{{localhoast}}/Customers({{id}})
+Content-Type: application/json
+
+{
+    "firstName": "Luiz"
+}
+
+# entity Customers {
+#     key id: UUID;
+#         firstName: String(20);
+#         lastName: String(100);
+#         email: String(255)
+# }

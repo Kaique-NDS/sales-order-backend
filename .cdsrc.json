@@ -5,7 +5,7 @@
                 "credentials":{
                     "database": ":memory:"
                 },
-                "kind":"sqlite"
+                "kind":"memory"
             }
         }
     }

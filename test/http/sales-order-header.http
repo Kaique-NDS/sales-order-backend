@@ -1,4 +1,3 @@
-// E possivel criar variaveis, por exemplo variavel com a API
 @localhoast = localhost:4004/odata/v4/my
 
 // E Possivel usar a variavel no crud e me mostra em forma de objeto
