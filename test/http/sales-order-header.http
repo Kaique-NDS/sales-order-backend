@@ -101,3 +101,15 @@ Content-Type: application/json
 // Paginando os registros
 GET http://{{localhoast}}/SalesOrderHeader?$skip=2&$top=3
 Content-Type: application/json
+
+###
+
+// Pesquisando com o $search
+GET http://{{localhoast}}/SalesOrderHeader?$search=eqx2i
+Content-Type: application/json
+
+###
+
+// Ordenando dados 
+GET http://{{localhoast}}/Customers?$orderby=id desc
+Content-Type: application/json
