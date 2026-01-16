@@ -68,13 +68,19 @@ Content-Type: application/json
 
 ###
 
-// filtro que busca totalAmount maior ou igual a 2000000
+// Filtro que busca totalAmount maior ou igual a 2000000
 GET http://localhost:4004/odata/v4/my/SalesOrderHeader?$filter=totalAmount ge 2000000
 Content-Type: application/json
 
 ###
 
-// filtro que busca totalAmount menor ou igual a 2000000
+// Filtro que busca totalAmount menor ou igual a 2000000
 GET http://localhost:4004/odata/v4/my/SalesOrderHeader?$filter=totalAmount le 2000000
+Content-Type: application/json
+
+###
+
+// Expandindo itens em SalesOrderHeader, expandindo custumers e expandindo product em itens
+GET http://localhost:4004/odata/v4/my/SalesOrderHeader?$expand=itens($expand=product),customer
 Content-Type: application/json
 

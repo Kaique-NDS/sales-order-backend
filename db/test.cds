@@ -24,6 +24,7 @@ entity SalesOrderItens {
 
 entity Products {
     key id: UUID;
+        itens: String;
         nome: String(255);
         price: Decimal(15,2)
 }
