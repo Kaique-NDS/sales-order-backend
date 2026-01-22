@@ -1,6 +1,6 @@
 
 // "Bibliotecas da sap"
-using {managed} from '@sap/cds/common';
+using { managed } from '@sap/cds/common';
 
 // Tudo que esta a baixo do namespace tera esse nome
 namespace sales;
@@ -24,9 +24,9 @@ entity SalesOrderItens {
 
 entity Products {
     key id: UUID;
-        itens: String;
         nome: String(255);
         price: Decimal(15,2)
+        stock: Integer
 }
 
 entity Customers {
