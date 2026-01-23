@@ -1,11 +1,11 @@
-@localhoast = localhost:4004/odata/v4/my
+@localhost = localhost:4004/odata/v4/my
 @id = 4639b241-57d0-4caa-b162-a68a9ae16c39
-GET http://{{localhoast}}/SalesOrderHeader
+GET http://{{localhost}}/SalesOrderHeaders
 Content-Type: application/json
 
 ###
 
-POST http://{{localhoast}}/Customers
+POST http://{{localhost}}/Customers
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 
 ###
 
-PATCH http://{{localhoast}}/Customers({{id}})
+PATCH http://{{localhost}}/Customers({{id}})
 Content-Type: application/json
 
 {

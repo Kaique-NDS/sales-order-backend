@@ -1,8 +1,8 @@
 import cds, { db, Request, Service } from '@sap/cds';
-import { Customers, Products, SalesOrderIten, SalesOrderItens }  from '../@cds-models/sales';
+import { Customers, Product, Products, SalesOrderHeaders, SalesOrderItem, SalesOrderItems }  from '../@cds-models/sales';
 const { SELECT } = cds.ql;
 
-// função que apos o "Customers" ser lido e se o "Costumer" não tiver @ no email, sera adicionado @gmail.com
+// função que apos o "Customers" ser lido e se o "Customer" não tiver @ no email, sera adicionado @gmail.com
 export default (service: Service) => {
     service.after('READ', 'Customers', (results: Customers) => {
         results.forEach(Customer => {
@@ -13,25 +13,25 @@ export default (service: Service) => {
         })
     });
 
-    service.before('CREATE', 'SalesOrderHeader', async (request: Request) => { 
+    service.before('CREATE', 'SalesOrderHeaders', async (request: Request) => { 
         const params = request.data;
-        const items: SalesOrderItens = params.itens;
+        const items: SalesOrderItems = params.items;
 
         // Caso o Customer não existir retornar uma mensagem
         if (!params.customer_id){
-            return request.reject(400, 'Customers invalido');
+            return request.reject(400, 'Invalid customer');
         }
 
         
-        if(!params.itens || params.itens.length === 0){
-            return request.reject(404, 'Item Invalido')
+        if(!params.items || params.items.length === 0){
+            return request.reject(404, 'Invalid item')
         }
         
 
         const CustomerQuery = SELECT.one.from('sales.Customers').where({id: params.customer_id})
         const customer = await cds.run(CustomerQuery) // pesquisar sobre o await
         
-        if (params.itens.length === 0 || !params.itens){
+        if (params.items.length === 0 || !params.items){
             return request.reject(404, "Item não encontrado")
         }
        
@@ -39,7 +39,7 @@ export default (service: Service) => {
             return request.reject(404, 'Customer não encontrado');
         }
 
-        const productsIds: string[] = params.itens.map((itens: SalesOrderIten) => (itens.product_id));
+        const productsIds: string[] = params.items.map((item: SalesOrderItem) => (item.product_id));
         const produtcsQuery = SELECT.from('sales.Products').where({id: productsIds})
         const products: Products = await cds.run(produtcsQuery)
         const dbproducts = products.map((product) => (product.id))
@@ -62,6 +62,26 @@ export default (service: Service) => {
 
 
     })
+
+    service.after('CREATE', 'SalesOrderHeaders', async (results: SalesOrderHeaders []) => {
+        const headersAsArray = Array.isArray(results) ? results : [results] as SalesOrderHeaders []
+        for (const header of headersAsArray) {
+            const items = header.items as SalesOrderItems;
+            const productsData = items.map(item => ({
+                id: item.product_id as string,
+                quantity: item.quantiti as number
+            }))
+
+            const productsIds: string[] = productsData.map((productsData) => productsData.id);
+            const produtcsQuery = SELECT.from('sales.Products').where({id: productsIds})
+            const products: Products = await cds.run(produtcsQuery)
+            for(const productData of productsData){
+                const findproducts = products.find(produc => produc.id === productData.id) as Product;
+                findproducts.stock = (findproducts.stock as number) - productData.quantity;
+                await cds.update('sales.Products').where({id: findproducts.id}).with({stock: findproducts.stock});
+            }
+        }
+    });
 
 
 }

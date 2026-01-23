@@ -1,13 +1,13 @@
-@localhoast = localhost:4004/odata/v4/my
+@localhost = localhost:4004/odata/v4/my
 @product_Id = "65ae0aa8-2ebf-4cd5-b9ff-c084760dbfeb"
 
-GET http://{{localhoast}}/SalesOrderHeader
+GET http://{{localhost}}/SalesOrderHeaders
 Content-Type: application/json
 
 ###
 
 // POST que adiciona produtos
-POST http://{{localhoast}}/Products
+POST http://{{localhost}}/Products
 Content-Type: application/json
 
 {

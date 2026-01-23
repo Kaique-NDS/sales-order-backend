@@ -6,17 +6,17 @@ using { managed } from '@sap/cds/common';
 namespace sales;
 
 // entidades -  dados 
-entity  SalesOrderHeader: managed {
+entity  SalesOrderHeaders: managed {
     key id: UUID;
         customer: Association to Customers;
         totalAmount: Decimal(15,2);
-        itens: Composition of many SalesOrderItens on itens.header = $self; // self esta referenciando ao SalesOrderHeader
+        items: Composition of many SalesOrderItems on items.header = $self; // self esta referenciando ao SalesOrderHeaders
     
 }
 
-entity SalesOrderItens {
+entity SalesOrderItems {
     key id: UUID;
-        header: Association to SalesOrderHeader;
+        header: Association to SalesOrderHeaders;
         product: Association to Products;
         quantiti: Integer;
         price: Decimal(15,2);

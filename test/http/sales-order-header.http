@@ -1,22 +1,22 @@
-@localhoast = localhost:4004/odata/v4/my
+@localhost = localhost:4004/odata/v4/my
 @id = 521d6814-9a1d-4c23-bfac-314d2d2c0e33
 @custumer_Id = 53649126-4eb6-4dfd-9fbc-34169fffc3ec
-@products_Id1 = 26147881-0b14-4733-92fb-dfd3558c6965
+@products_Id1 = 12195674-d9c9-4582-9aa2-2988724246d4
 
 @products_Id2 = 12195671-1da6-4301-892d-c9165bd96088
-GET http://{{localhoast}}/SalesOrderHeader?$expand=itens
+GET http://{{localhost}}/SalesOrderHeaders?$expand=itens
 Content-Type: application/json
 
 ###
 
 
-POST http://{{localhoast}}/SalesOrderHeader
+POST http://{{localhost}}/SalesOrderHeaders
 Content-Type: application/json
 
 {
     "id": "{{id}}",
     "customer_id":"{{custumer_Id}}", 
-    "itens": [
+    "items": [
         {
             "id": "659d284e-a71c-4089-8999-e0197fd3d2a2",
             "header_id": "{{id}}",
@@ -28,8 +28,8 @@ Content-Type: application/json
         {
             "id": "24cd7774-2ea1-4900-b537-6e069ad25225",
             "header_id": "{{id}}",
-            "product_id": "{{products_Id2}}",
-            "quantiti": 4,
+            "product_id": "{{products_Id1}}",
+            "quantiti": 5,
             "price": 15.99
         }
         ]
@@ -39,7 +39,7 @@ Content-Type: application/json
 ###
 
 
-DELETE http://{{localhoast}}/SalesOrderHeader(id={{id}})
+DELETE http://{{localhost}}/SalesOrderHeaders(id={{id}})
 Content-Type: application/json
 
 {
@@ -48,53 +48,53 @@ Content-Type: application/json
 
 ###
 
-PUT http://{{localhoast}}/SalesOrderHeader("id"=c7fd1cd3-bd65-4d27-8ca0-5cbdea4d0ccc")
+PUT http://{{localhost}}/SalesOrderHeaders("id"=c7fd1cd3-bd65-4d27-8ca0-5cbdea4d0ccc")
 Content-Type: application/json
 
 ###
 
 // Filtro que busca totalAmount maior ou igual a 2000000
-GET http://{{localhoast}}/SalesOrderHeader?$filter=totalAmount ge 2000000
+GET http://{{localhost}}/SalesOrderHeaders?$filter=totalAmount ge 2000000
 Content-Type: application/json
 
 ###
 
 // Filtro que busca totalAmount menor ou igual a 2000000
-GET http://{{localhoast}}/SalesOrderHeader?$filter=totalAmount le 2000000
+GET http://{{localhost}}/SalesOrderHeaders?$filter=totalAmount le 2000000
 Content-Type: application/json
 
 ###
 
-// Expandindo itens em SalesOrderHeader, expandindo custumers e expandindo product em itens
-GET http://{{localhoast}}/SalesOrderHeader?$expand=itens($expand=product),customer
+// Expandindo items em SalesOrderHeaders, expandindo customers e expandindo product em items
+GET http://{{localhost}}/SalesOrderHeaders?$expand=items($expand=product),customer
 Content-Type: application/json
 
 ###
 
 // Selecionando somente o customer e id de SalesOrderHeader, expandindo o customer
-GET http://{{localhoast}}/SalesOrderHeader?$select=id,customer&$expand=customer
+GET http://{{localhost}}/SalesOrderHeaders?$select=id,customer&$expand=customer
 Content-Type: application/json
 
 ###
 
 // Descobrindo a quantidade de registro 
-GET http://{{localhoast}}/SalesOrderHeader/$count
+GET http://{{localhost}}/SalesOrderHeaders/$count
 Content-Type: application/json
 
 ###
 
 // Paginando os registros
-GET http://{{localhoast}}/SalesOrderHeader?$skip=2&$top=3
+GET http://{{localhost}}/SalesOrderHeaders?$skip=2&$top=3
 Content-Type: application/json
 
 ###
 
 // Pesquisando com o $search
-GET http://{{localhoast}}/SalesOrderHeader?$search=eqx2i
+GET http://{{localhost}}/SalesOrderHeaders?$search=eqx2i
 Content-Type: application/json
 
 ###
 
 // Ordenando dados 
-GET http://{{localhoast}}/Customers?$orderby=id desc
+GET http://{{localhost}}/Customers?$orderby=id desc
 Content-Type: application/json
