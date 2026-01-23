@@ -1,6 +1,6 @@
 using { sales } from '../db/schema';
 
-@requeries: 'autenticated-user'
+@requires: 'authenticated-user'
 service MyService {
 
     entity SalesOrderHeaders as projection on sales.SalesOrderHeaders;

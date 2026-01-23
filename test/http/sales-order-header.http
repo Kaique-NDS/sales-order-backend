@@ -12,10 +12,12 @@ Content-Type: application/json
 
 POST http://{{localhost}}/SalesOrderHeaders
 Content-Type: application/json
+Authorization: Basic kaique:Kaique@123
 
 {
     "id": "{{id}}",
-    "customer_id":"{{custumer_Id}}", 
+    "customer_id":"{{custumer_Id}}",
+    "totalAmount": 30.5,
     "items": [
         {
             "id": "659d284e-a71c-4089-8999-e0197fd3d2a2",

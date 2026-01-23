@@ -56,10 +56,16 @@ export default (service: Service) => {
             if(dbproduct.stock === 0 ){
                 return request.reject(404, `Produto ${dbproduct.nome} (${dbproduct.id})sem estoque disponivel`)
             }
-
-
+            
         }
 
+        let totalAmount = 0;
+        items.forEach(item => {
+            totalAmount += (item.price as number) * (item.quantiti as number) 
+        })
+        
+        request.data.totalAmount = totalAmount;
+        
 
     })
 
