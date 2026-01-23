@@ -17,9 +17,18 @@
                             "id": 1,
                             "groups": ["group1", "group2"]
                         }
+                    },
+                    "mike":{
+                        "password": "Mike@123",
+                        "roles": ["read_only_user"],
+                        "attr": {
+                            "id": 2,
+                            "groups": ["group1"]
+                        }
                     }
                 }
             }
+            
         }
     }
 }
