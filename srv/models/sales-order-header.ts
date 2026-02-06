@@ -1,46 +1,44 @@
-import { SalesOrdemItemModel } from "./sales-order-items";
+import { SalesOrdemItemModel } from './sales-order-items';
 
 type SalesOrderHeaderProps = {
     id: string;
     customerId: string;
     totalAmount: number;
     items: SalesOrdemItemModel[];
-}
+};
 
 type CreationPayload = {
-    customer_id: SalesOrderHeaderProps["customerId"],
-}
+    customer_id: SalesOrderHeaderProps['customerId'];
+};
 
 type CreationPayloadValidationResult = {
     hasError: boolean;
     erro?: Error;
-}
+};
 
-
-
-type SalesOrderHeaderPropsWithoutIdAndTotalAmount = Omit<SalesOrderHeaderProps, 'id' | 'totalAmount' >;
+type SalesOrderHeaderPropsWithoutIdAndTotalAmount = Omit<SalesOrderHeaderProps, 'id' | 'totalAmount'>;
 
 export class SalesOrderHeaderModel {
     constructor(private props: SalesOrderHeaderProps) {}
 
-    public static create(props: SalesOrderHeaderPropsWithoutIdAndTotalAmount): SalesOrderHeaderModel{
+    public static create(props: SalesOrderHeaderPropsWithoutIdAndTotalAmount): SalesOrderHeaderModel {
         return new SalesOrderHeaderModel({
             ...props,
             id: crypto.randomUUID(),
-            totalAmount: 0,
-        })
+            totalAmount: 0
+        });
     }
 
     public static with(props: SalesOrderHeaderProps): SalesOrderHeaderModel {
         return new SalesOrderHeaderModel(props);
     }
 
-    public get totalAmount (){
-        return this.props.totalAmount
+    public get totalAmount() {
+        return this.props.totalAmount;
     }
 
     public get id() {
-        return this.props.id
+        return this.props.id;
     }
 
     public get customerId() {
@@ -48,10 +46,10 @@ export class SalesOrderHeaderModel {
     }
 
     public get items() {
-        return this.props.items
+        return this.props.items;
     }
 
-    public set totalAmount (amount: number){
+    public set totalAmount(amount: number) {
         this.props.totalAmount = amount;
     }
 
@@ -60,33 +58,27 @@ export class SalesOrderHeaderModel {
 
         if (customerValidationresult.hasError) {
             return customerValidationresult;
-
         }
         const itemsValidationResult = this.validateItemsOnCreation(this.items);
-        if(itemsValidationResult.hasError){
+        if (itemsValidationResult.hasError) {
             return itemsValidationResult;
         }
         return {
             hasError: false
-        }
-
-
+        };
     }
 
     // Validação: verifica se customer_id foi fornecido
     private validateCustomerOnCreation(customerId: CreationPayload['customer_id']): CreationPayloadValidationResult {
-
         if (!customerId) {
             return {
                 hasError: true,
-                erro: new Error('Invalid customer'),
+                erro: new Error('Invalid customer')
             };
-
         }
         return {
             hasError: false
-        }
-
+        };
     }
 
     // Validação: verifica se há itens na ordem
@@ -94,48 +86,48 @@ export class SalesOrderHeaderModel {
         if (!items || items?.length === 0) {
             return {
                 hasError: true,
-                erro: new Error('Items Invalidos'),
+                erro: new Error('Items Invalidos')
             };
         }
 
         const itemsErrors: string[] = [];
-        items.forEach(item => {
-            const validationresult = item.validationCreationPayload({ product_id: item.productId })
+        items.forEach((item) => {
+            const validationresult = item.validationCreationPayload({ product_id: item.productId });
             if (validationresult.hasError) {
-                itemsErrors.push(validationresult.error?.message as string)
+                itemsErrors.push(validationresult.error?.message as string);
             }
-        })
+        });
         if (itemsErrors.length > 0) {
-            const mensages = itemsErrors.join('\n -')
+            const mensages = itemsErrors.join('\n -');
             return {
                 hasError: true,
                 erro: new Error(mensages)
-            }
+            };
         }
         return {
             hasError: false
-        }
+        };
     }
 
-    public calculateTotalAmoult (): number {
+    public calculateTotalAmoult(): number {
         let totalAmount = 0;
-        this.items.forEach(item => {
+        this.items.forEach((item) => {
             totalAmount += (item.price as number) * (item.quantiti as number);
         });
         return totalAmount;
     }
 
-    public calculateDiscont (): number{
+    public calculateDiscont(): number {
         let totalAmount = this.calculateTotalAmoult();
-        if(totalAmount > 30000){
-            const discont = totalAmount * (10/100) ;
+        if (totalAmount > 30000) {
+            const discont = totalAmount * (10 / 100);
             totalAmount = totalAmount - discont;
         }
         return totalAmount;
     }
 
-    public getProductsData (): {id: string; quantity: number} []{
-        return this.items.map(item => ({
+    public getProductsData(): { id: string; quantity: number }[] {
+        return this.items.map((item) => ({
             id: item.productId,
             quantity: item.quantiti
         }));
@@ -144,9 +136,4 @@ export class SalesOrderHeaderModel {
     public toStringifiedObject(): string {
         return JSON.stringify(this.props);
     }
-
 }
-
-
-
-

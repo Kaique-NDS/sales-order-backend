@@ -2,7 +2,7 @@
 // Segue o padrão Factory para facilitar a criação e injeção de dependências.
 
 import { CustomerService } from '../../services/customer/protocols';
-import { CustomerServiceImpl} from '../../services/customer/implementation';
+import { CustomerServiceImpl } from '../../services/customer/implementation';
 
 // Factory function que cria a instância do serviço de customer
 const makeCustomerService = (): CustomerService => {

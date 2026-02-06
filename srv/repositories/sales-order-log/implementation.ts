@@ -1,11 +1,11 @@
-import cds from '@sap/cds'
+import cds from '@sap/cds';
 
-import { SalesOrderLogsModel } from "srv/models/sales-order-logs";
-import { SalesOrderLogRepository } from "./protocols";
+import { SalesOrderLogRepository } from './protocols';
+import { SalesOrderLogsModel } from 'srv/models/sales-order-logs';
 
-export class SalesOrderLogRepositoryImp implements SalesOrderLogRepository{
+export class SalesOrderLogRepositoryImp implements SalesOrderLogRepository {
     public async create(logs: SalesOrderLogsModel[]): Promise<void> {
-        const logsObject = logs.map(log => log.ToObject());
-        await cds.create('sales.SalesOrderLogs').entries(logsObject)
+        const logsObject = logs.map((log) => log.ToObject());
+        await cds.create('sales.SalesOrderLogs').entries(logsObject);
     }
 }

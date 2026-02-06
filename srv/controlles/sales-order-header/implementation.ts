@@ -1,10 +1,10 @@
-import { SalesOrderHeaderModel } from "srv/models/sales-order-header";
-import { CreationPayloadValidationResult, SalesOrderHeaderService } from "srv/services/sales-order-header/protocols";
-import { SalesOrderHeaderController } from "./protocols";
-import { User } from "@sap/cds";
+import { SalesOrderHeaderController } from './protocols';
+import { SalesOrderHeaderModel } from 'srv/models/sales-order-header';
+import { User } from '@sap/cds';
+import { CreationPayloadValidationResult, SalesOrderHeaderService } from 'srv/services/sales-order-header/protocols';
 
-export class SalesOrderControllerImpl implements SalesOrderHeaderController{
-    constructor(private readonly service: SalesOrderHeaderService){}
+export class SalesOrderControllerImpl implements SalesOrderHeaderController {
+    constructor(private readonly service: SalesOrderHeaderService) {}
 
     public async beforeCreate(params: SalesOrderHeaderModel): Promise<CreationPayloadValidationResult> {
         return this.service.beforeCreate(params);

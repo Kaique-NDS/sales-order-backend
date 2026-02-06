@@ -3,22 +3,22 @@ type SalesOrderLogsProps = {
     headerId: string;
     userData: string;
     orderData: string;
-}
+};
 
 type SalesOrderLogsdbProps = Omit<SalesOrderLogsProps, 'headerId'> & {
-    header_id: string
-}
+    header_id: string;
+};
 
 type SalesOrderLogWithoutIProps = Omit<SalesOrderLogsProps, 'id'>;
 
 export class SalesOrderLogsModel {
-    constructor(private props: SalesOrderLogsProps) { }
+    constructor(private props: SalesOrderLogsProps) {}
 
     public static create(props: SalesOrderLogWithoutIProps): SalesOrderLogsModel {
         return new SalesOrderLogsModel({
             ...props,
             id: crypto.randomUUID()
-        })
+        });
     }
 
     public get id() {
@@ -39,12 +39,11 @@ export class SalesOrderLogsModel {
 
     // Converte a instância do modelo para um objeto simples (DTO)
     public ToObject(): SalesOrderLogsdbProps {
-        return { 
+        return {
             id: this.props.id,
             header_id: this.props.headerId,
             userData: this.props.userData,
             orderData: this.props.orderData
-        }
+        };
     }
-
 }
