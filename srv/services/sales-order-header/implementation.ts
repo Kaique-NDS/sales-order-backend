@@ -1,14 +1,14 @@
-import { CustomerModel } from 'srv/models/customers';
-import { CustomerRepository } from 'srv/repositories/customer/protocols';
-import { LoggedUserModel } from 'srv/models/logged-user';
-import { ProductModel } from 'srv/models/products';
-import { ProductRepository } from '../../repositories/products/protocols';
-import { SalesOrdemItemModel } from 'srv/models/sales-order-items';
-import { SalesOrderHeaderModel } from 'srv/models/sales-order-header';
-import { SalesOrderLogRepository } from 'srv/repositories/sales-order-log/protocols';
-import { SalesOrderLogsModel } from 'srv/models/sales-order-logs';
+import { CustomerModel } from '@/models/customers';
+import { CustomerRepository } from '@/repositories/customer/protocols';
+import { LoggedUserModel } from '@/models/logged-user';
+import { ProductModel } from '@/models/products';
+import { ProductRepository } from '@/repositories/products/protocols';
+import { SalesOrdemItemModel } from '@/models/sales-order-items';
+import { SalesOrderHeaderModel } from '@/models/sales-order-header';
+import { SalesOrderLogRepository } from '@/repositories/sales-order-log/protocols';
+import { SalesOrderLogsModel } from '@/models/sales-order-logs';
 import { User } from '@sap/cds';
-import { CreationPayloadValidationResult, SalesOrderHeaderService } from './protocols';
+import { CreationPayloadValidationResult, SalesOrderHeaderService } from '@/services/sales-order-header/protocols';
 import { SalesOrderHeaders, SalesOrderItem } from '@models/sales';
 
 export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {

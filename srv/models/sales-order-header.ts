@@ -1,4 +1,4 @@
-import { SalesOrdemItemModel } from './sales-order-items';
+import {SalesOrdemItemModel} from '@/models/sales-order-items'
 
 type SalesOrderHeaderProps = {
     id: string;

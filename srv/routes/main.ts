@@ -1,10 +1,11 @@
 // Este arquivo configura os event handlers do serviço CAP.
 // Responsável por processar eventos de leitura e criação de dados.
-
-import { customerController } from './factories/controllers/customer';
-import { salesOrderHeaderController } from './factories/controllers/sales-order-header';
-import { Customers, SalesOrderHeaders } from '../@cds-models/sales';
+import './configs/module-alias';
 import { Request, Service } from '@sap/cds';
+
+import { customerController } from '@/factories/controllers/customer';
+import { salesOrderHeaderController } from '@/factories/controllers/sales-order-header';
+import { Customers, SalesOrderHeaders } from '@models/sales';
 
 // Função que configura os event handlers do serviço
 export default (service: Service) => {

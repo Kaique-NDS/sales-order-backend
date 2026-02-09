@@ -1,8 +1,8 @@
 // Fornece a lógica de negócio para processar dados de customers.
 // Implementa as regras de negócio e transformações necessárias.
 
-import { CustomerModel } from 'srv/models/customers';
-import { CustomerService } from './protocols';
+import { CustomerModel } from '@/models/customers';
+import { CustomerService } from '@/services/customer/protocols';
 import { Customers } from '@models/sales';
 
 // Implementação do serviço de customer que processa listas de customers

@@ -1,7 +1,8 @@
-// Responsável por orquestrar as requisições do controller com o serviço.
-import { CustomerController } from './protocols';
-import { CustomerService } from 'srv/services/customer/protocols';
 import { Customers } from '@models/sales';
+
+// Responsável por orquestrar as requisições do controller com o serviço.
+import { CustomerController } from '@/controlles/customer/protocols';
+import { CustomerService } from '@/services/customer/protocols';
 
 // Controller que gerencia as operações de customer
 export class CustomerControllerImp implements CustomerController {

@@ -1,6 +1,6 @@
 import { User } from '@sap/cds';
 
-import { SalesOrderHeaderModel } from 'srv/models/sales-order-header';
+import { SalesOrderHeaderModel } from '@/models/sales-order-header';
 import { SalesOrderHeaders } from '@models/sales';
 
 export type CreationPayloadValidationResult = {
