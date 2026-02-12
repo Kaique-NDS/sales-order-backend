@@ -22,7 +22,7 @@ entity SalesOrderItems {
     key id: UUID;
         header: Association to SalesOrderHeaders;
         product: Association to Products;
-        quantiti: Integer;
+        quantity: Integer;
         price: Decimal(15,2);
 }
 

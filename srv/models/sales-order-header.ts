@@ -112,7 +112,7 @@ export class SalesOrderHeaderModel {
     public calculateTotalAmoult(): number {
         let totalAmount = 0;
         this.items.forEach((item) => {
-            totalAmount += (item.price as number) * (item.quantiti as number);
+            totalAmount += (item.price as number) * (item.quantity as number);
         });
         return totalAmount;
     }
@@ -129,7 +129,7 @@ export class SalesOrderHeaderModel {
     public getProductsData(): { id: string; quantity: number }[] {
         return this.items.map((item) => ({
             id: item.productId,
-            quantity: item.quantiti
+            quantity: item.quantity
         }));
     }
 

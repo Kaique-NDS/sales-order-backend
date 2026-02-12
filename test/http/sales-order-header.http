@@ -24,7 +24,7 @@ Authorization: Basic kaique:Kaique@123
             "id": "659d284e-a71c-4089-8999-e0197fd3d2a2",
             "header_id": "{{id}}",
             "product_id": "{{products_Id1}}",
-            "quantiti": 10,
+            "quantity": 10,
             "price": 20.99
         },
 
@@ -32,7 +32,7 @@ Authorization: Basic kaique:Kaique@123
             "id": "24cd7774-2ea1-4900-b537-6e069ad25225",
             "header_id": "{{id}}",
             "product_id": "{{products_Id1}}",
-            "quantiti": 5,
+            "quantity": 5,
             "price": 100000
         }
         ]

@@ -3,7 +3,7 @@ import { ProductModel } from '@/models/products';
 type SalesOrderItemProps = {
     id: string;
     productId: string;
-    quantiti: number;
+    quantity: number;
     price: number;
     products: ProductModel[];
 };
@@ -37,8 +37,8 @@ export class SalesOrdemItemModel {
         return this.props.productId;
     }
 
-    public get quantiti() {
-        return this.props.quantiti;
+    public get quantity() {
+        return this.props.quantity;
     }
 
     public get price() {

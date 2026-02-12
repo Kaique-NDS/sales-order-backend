@@ -83,7 +83,7 @@ export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {
             SalesOrdemItemModel.create({
                 price: item.price as number,
                 productId: item.product_id as string,
-                quantiti: item.quantiti as number,
+                quantity: item.quantity as number,
                 products
             })
         ) as SalesOrdemItemModel[];
