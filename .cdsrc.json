@@ -18,8 +18,8 @@
                             "groups": "group1,group2"
                         }
                     },
-                    "mike":{
-                        "password": "Mike@123",
+                    "Kel":{
+                        "password": "Kel@123",
                         "roles": ["read_only_user"],
                         "attr": {
                             "id": "2",
