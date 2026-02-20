@@ -9,22 +9,22 @@ import { SalesOrderLogRepository } from '@/repositories/sales-order-log/protocol
 import { SalesOrderLogsModel } from '@/models/sales-order-logs';
 import { User } from '@sap/cds';
 import { CreationPayloadValidationResult, SalesOrderHeaderService } from '@/services/sales-order-header/protocols';
-import { SalesOrderHeaders, SalesOrderItem } from '@models/sales';
+import { SalesOrderHeader, SalesOrderHeaders, SalesOrderItem } from '@models/sales';
 
-export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {
+export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService { 
     constructor(
         private readonly customerRepository: CustomerRepository,
         private readonly ProductRepository: ProductRepository,
         private readonly SalesOrderLogRepository: SalesOrderLogRepository
     ) {}
 
-    public async afterCreate(params: SalesOrderHeaders, loggedUser: User): Promise<void> {
-        // Garante que results seja um array
-        const headersAsArray = Array.isArray(params) ? params : ([params] as SalesOrderHeaders[]);
+    public async afterCreate(
+        params: SalesOrderHeader | SalesOrderHeader[], loggedUser: User): Promise<void> {
+        // Garante que params seja um array
+        const headersAsArray = Array.isArray(params) ? params : [params];
 
-        const logs: SalesOrderLogsModel[] = [];
+        const logs: SalesOrderLogsModel[] = []; // Declaração da variável logs
 
-        // Itera sobre cada header de vendas criado
         for (const header of headersAsArray) {
             const products = (await this.getProductsByIds(header)) as ProductModel[];
             const items = this.getSalesOrderitems(header, products);
@@ -44,7 +44,7 @@ export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {
         await this.SalesOrderLogRepository.create(logs);
     }
 
-    public async beforeCreate(params: SalesOrderHeaders): Promise<CreationPayloadValidationResult> {
+    public async beforeCreate(params: SalesOrderHeader): Promise<CreationPayloadValidationResult> {
         const products = await this.getProductsByIds(params);
 
         if (!products) {
@@ -73,12 +73,14 @@ export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {
         };
     }
 
-    private async getProductsByIds(params: SalesOrderHeaders): Promise<ProductModel[] | null> {
-        const productsIds: string[] = params.items?.map((item: SalesOrderItem) => item.product_id) as string[];
-        return this.ProductRepository.findByIds(productsIds);
+    private async getProductsByIds(params: SalesOrderHeader): Promise<ProductModel[] | null> {
+        // Acessa os itens do pedido
+        const productsIds: string[] = params.items?.map((item: SalesOrderItem) => item.product_id || '') || [];
+        return this.ProductRepository.findByIds(productsIds.filter(Boolean)); // Remove valores vazios
     }
 
-    private getSalesOrderitems(params: SalesOrderHeaders, products: ProductModel[]): SalesOrdemItemModel[] {
+    private getSalesOrderitems(params: SalesOrderHeader, products: ProductModel[]): SalesOrdemItemModel[] {
+        // Cria os itens do pedido
         return params.items?.map((item) =>
             SalesOrdemItemModel.create({
                 price: item.price as number,
@@ -86,10 +88,10 @@ export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {
                 quantity: item.quantity as number,
                 products
             })
-        ) as SalesOrdemItemModel[];
+        ) || [];
     }
 
-    private getSalesOrderHeader(params: SalesOrderHeaders, items: SalesOrdemItemModel[]): SalesOrderHeaderModel {
+    private getSalesOrderHeader(params: SalesOrderHeader, items: SalesOrdemItemModel[]): SalesOrderHeaderModel {
         return SalesOrderHeaderModel.create({
             customerId: params.customer_id as string,
             items
@@ -97,7 +99,7 @@ export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {
     }
 
     private getExistingSalesOrderHeader(
-        params: SalesOrderHeaders,
+        params: SalesOrderHeader,
         items: SalesOrdemItemModel[]
     ): SalesOrderHeaderModel {
         return SalesOrderHeaderModel.with({
@@ -108,7 +110,7 @@ export class SalesOrderHeaderServiceImpl implements SalesOrderHeaderService {
         });
     }
 
-    private getCustomerByIds(params: SalesOrderHeaders): Promise<CustomerModel | null> {
+    private getCustomerByIds(params: SalesOrderHeader): Promise<CustomerModel | null> {
         const customerId = params.customer_id as string;
         return this.customerRepository.findById(customerId);
     }
